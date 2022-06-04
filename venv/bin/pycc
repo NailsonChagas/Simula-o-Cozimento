@@ -1,0 +1,3 @@
+#!/mnt/9a3f66c9-6d6d-4e50-b992-ca8f034e1022/Estudos/Apostilas_Livros_Provas_Trabalhos/Fenomenos_de_transporte/venv/bin/python3
+from numba.pycc import main
+main()
