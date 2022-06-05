@@ -103,10 +103,18 @@ def main():
                                 frames=359, interval=50)
     ani.save('cooked.gif',writer='pillow',fps=30)
 
-    plt.figure(figsize=(8,8))
-    a = plt.contourf(lista_img[-1], 100, cmap=heat_map, vmin=frango_cru_temp-273.15, vmax=forno_temp-273.15)
-    plt.colorbar()
-    plt.show()
+    t = np.linspace(0, 10, len(lista_img))
+    avg_temp = np.array([img[frango_cor_bool].mean() for img in lista_img]) 
+    min_temp = np.array([img[frango_cor_bool].min() for img in lista_img]) 
+
+    plt.plot(t, avg_temp, label='average')
+    plt.plot(t, min_temp, label='average')
+    plt.axhline(80, color='k', ls='--')
+    plt.xlabel('Time[hours]')
+    plt.ylabel('Temp [$^\circ C$]')
+    plt.grid()
+    plt.savefig('temp.png', format='png')
+
 
 if __name__ == "__main__":
     main()
