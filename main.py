@@ -17,7 +17,6 @@ Esta simulação é bidimensional
 
 """
 
-import json
 import numba
 from numba import jit
 
