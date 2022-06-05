@@ -57,7 +57,7 @@ def solve_heat(heatmap, frango, coef_frango, iteracoes, delta, dx, dt):
 def main():
     borda = np.linspace(0, 1, 600) #imagem 600x600
     xv, yv = np.meshgrid(borda, borda)
-    imagem = color.rgb2gray(io.imread('./img/frango_red.png')[:,:,:3])
+    imagem = color.rgb2gray(io.imread('./img/frango_red100-2.png')[:,:,:3])
     imagem = np.flip(imagem, axis=0) #imagem é armazenada invertida no computador (????)
 
     frango_cor_bool = imagem < 0.9 # array -> se claridade >= 1 false / se claridade < 1 true
@@ -67,13 +67,13 @@ def main():
     forno_temp = 273.15 + 180 # em Kelvin ou 180ºC
 
     #lista criada a baixo dira qual a temperatura inicial em cada ponto do sistema forno + frango
-    temp_ini = np.zeros([600, 600]) + forno_temp
+    temp_ini = np.zeros([100, 100]) + forno_temp
     temp_ini[frango_cor_bool] = frango_cru_temp
 
     edo_iter = 36000 #numero de vezes q a EDO sera atualizada (iterações do programa)
     img_num = 3600 #numero de imagens do forno que serão tiradas
     delta_img = int(edo_iter/img_num) #de quantas em quantas iterações a imagem vai ser tirada
-    lista_img = np.zeros([img_num, 600, 600])
+    lista_img = np.zeros([img_num, 100, 100])
     lista_img[0] = temp_ini
 
     x = 0.6 # 3 considerando q o frango tem 60cm
@@ -104,7 +104,7 @@ def main():
     ani.save('cooked.gif',writer='pillow',fps=30)
 
     plt.figure(figsize=(8,8))
-    a = plt.contourf(lista_img[-1], 600, cmap=heat_map, vmin=frango_cru_temp-273.15, vmax=forno_temp-273.15)
+    a = plt.contourf(lista_img[-1], 100, cmap=heat_map, vmin=frango_cru_temp-273.15, vmax=forno_temp-273.15)
     plt.colorbar()
     plt.show()
 
