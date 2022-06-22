@@ -34,13 +34,10 @@ def solve_heat(heatmap, frango, coef_frango, iteracoes, delta, dx, dt):
     cs = heatmap[0].copy() #current state
     length = len(cs[0])
     cf = 0 # current frame
-    cont = 0
     for t in range(1,iteracoes):
         ns = cs.copy() # new state
         for i in range(1, length-1):
             for j in range(1, length-1):
-                print(cont)
-                cont += 1
                 if frango[j][i]:
                     a = coef_frango
                     ns[j][i] = cs[j][i] + a*dt/dx**2 * (cs[j+1][i] + cs[j-1][i] +\
@@ -80,11 +77,6 @@ def main():
     dt = 1 # 1 segundo --> (36000/1)/3600 = frango assando por 10h
 
     lista_img = solve_heat(lista_img, frango_cor_bool, coef_frango, edo_iter, delta_img, dx, dt)
-    
-    #aux = lista_img.tolist()
-    #json_str = json.dumps(aux)
-    #with open('json_data.json', 'w') as outfile:
-    #    json.dump(json_str, outfile)
 
     #covertendo para ºC
     lista_img -= 273.15
@@ -98,8 +90,7 @@ def main():
         return fig,
 
     fig, ax = plt.subplots(figsize=(8,6))
-    ani = animation.FuncAnimation(fig, animate,
-                                frames=359, interval=50)
+    ani = animation.FuncAnimation(fig, animate, frames=359, interval=50)
     ani.save('cooked.gif',writer='pillow',fps=30)
 
     t = np.linspace(0, 10, len(lista_img))
